@@ -1,10 +1,12 @@
-# This references a standard debian container from the
-# Docker Hub https://registry.hub.docker.com/_/debian/
+# This references the default golang container from
+# the Docker Hub: https://registry.hub.docker.com/u/library/golang/
+# If you want Google's container you would reference google/golang
 # Read more about containers on our dev center
 # http://devcenter.wercker.com/docs/containers/index.html
-
-#box: debian
-box: maven:3.5.2-jdk-8
+box: google/golang
+# This is the build pipeline. Pipelines are the core of wercker
+# Read more about pipelines on our dev center
+# http://devcenter.wercker.com/docs/pipelines/index.html
 
 # You can also use services such as databases. Read more on our dev center:
 # http://devcenter.wercker.com/docs/services/index.html
@@ -14,37 +16,38 @@ box: maven:3.5.2-jdk-8
 
     # - mongo
     # http://devcenter.wercker.com/docs/services/mongodb.html
-
-# This is the build pipeline. Pipelines are the core of wercker
-# Read more about pipelines on our dev center
-# http://devcenter.wercker.com/docs/pipelines/index.html
 build:
-    # Steps make up the actions in your pipeline
-    # Read more about steps on our dev center:
-    # http://devcenter.wercker.com/docs/steps/index.html
+  # The steps that will be executed on build
+  # Steps make up the actions in your pipeline
+  # Read more about steps on our dev center:
+  # http://devcenter.wercker.com/docs/steps/index.html
   steps:
-steps:
-    - almogbaku/dep-ensure@0.3.1
+    # Sets the go workspace and places you package
+    # at the right place in the workspace tree
+    #- setup-go-workspace
+
+    # Gets the dependencies
     - script:
-        name: make
+        name: go get
         code: |
-          echo "MAKE START"
-          make build
-          echo "MAKE FINISH"
+          git config --global http.proxy http://www-proxy.us.oracle.com:80
+          git config --global https.proxy https://www-proxy.us.oracle.com:80
+          go get -u github.com/golang/protobuf/protoc-gen-go
+          go get github.com/cockroachdb/cmux
+          go get github.com/rs/cors
+          go get google.golang.org/grpc
+          go get github.com/grafeas/grafeas/samples/server/go-server/api/server/api
+          go get gopkg.in/yaml.v2
+          go get github.com/lib/pq
 
-# Test pipeline
-test:
-  steps:
-    - java/maven:
-      goals: test
-#      settings: settings.xml
-#      profiles: prod
-
-# Deploy pipeline
-deploy:
-  steps:
+    # Build the project
     - script:
-        name: echo
+        name: go build
         code: |
-          echo "deploy hello world!"
+          go build ./...
 
+    # Test the project
+    - script:
+        name: go test
+        code: |
+          go test ./...
