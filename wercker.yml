@@ -3,7 +3,7 @@
 # If you want Google's container you would reference google/golang
 # Read more about containers on our dev center
 # http://devcenter.wercker.com/docs/containers/index.html
-box: google/golang
+box: golang
 # This is the build pipeline. Pipelines are the core of wercker
 # Read more about pipelines on our dev center
 # http://devcenter.wercker.com/docs/pipelines/index.html
@@ -33,7 +33,7 @@ build:
           go version
           go get -u github.com/golang/protobuf/protoc-gen-go
           go get github.com/cockroachdb/cmux
-          go get github.com/rs/cors || true
+          go get github.com/rs/cors
           go get google.golang.org/grpc
           go get github.com/grafeas/grafeas/samples/server/go-server/api/server/api
           go get gopkg.in/yaml.v2
