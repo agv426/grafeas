@@ -1,6 +1,6 @@
 .PHONY: build fmt test vet clean
 
-SRC = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
+SRC = $(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./wercker/*")
 CLEAN := *~
 
 default: build
