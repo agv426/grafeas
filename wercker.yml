@@ -31,11 +31,11 @@ build:
         name: get protobuf
         code: |
           uname -a
-          apt-get install unzip
           mkdir -p /protobuf
           curl -o /protobuf/protobuf.zip -L https://github.com/google/protobuf/releases/download/v3.5.1/protoc-3.5.1-linux-x86_64.zip
-          $(cd /protobuf; unzip protobuf.zip)
-          echo LISTING: $(ls /protobuf)
+          $(cd /protobuf; gunzip protobuf.zip) || true
+          echo "Files in /protobuf:"
+          ls /protobuf
 
     # Gets the dependencies
     - script:
