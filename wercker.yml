@@ -30,10 +30,10 @@ build:
     - script:
         name: go get
         code: |
-          type protoc
+          go version
           go get -u github.com/golang/protobuf/protoc-gen-go
           go get github.com/cockroachdb/cmux
-          go get github.com/rs/cors
+          go get github.com/rs/cors || true
           go get google.golang.org/grpc
           go get github.com/grafeas/grafeas/samples/server/go-server/api/server/api
           go get gopkg.in/yaml.v2
