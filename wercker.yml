@@ -50,7 +50,7 @@ build:
           go get github.com/cockroachdb/cmux
           go get github.com/rs/cors
           go get google.golang.org/grpc
-          #go get github.com/grafeas/grafeas/samples/server/go-server/api/server/api
+          go get github.com/grafeas/grafeas/samples/server/go-server/api/server/api
           go get gopkg.in/yaml.v2
           go get github.com/lib/pq
 
