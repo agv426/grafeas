@@ -25,7 +25,7 @@ build:
   # http://devcenter.wercker.com/docs/steps/index.html
   steps:
     - install-packages:
-        packages: zip unzip docker
+        packages: zip unzip
 
     # Sets the go workspace and places you package
     # at the right place in the workspace tree
@@ -58,6 +58,8 @@ build:
     - script:
         name: make
         code: |
+          echo "Looking for Docker:"
+          type docker || true
           echo "LIST:"
           ls -l / /go /pipeline
           echo "MAKE START"
