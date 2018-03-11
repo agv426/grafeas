@@ -65,7 +65,13 @@ build:
           export PATH="/protobuf/bin:$PATH"
           make clean build || true
           echo "MAKE END"
-          find /go /pipeline -type f -newer Timestamp.txt
+          find /go /pipeline -type f -newer Timestamp.txt | grep -v "/\.git/"
+          echo "CACHE:"
+          find /pipeline/cache
+          echo "SOURCE:"
+          find /pipeline/source
+          echo "OUTPUT:"
+          find /pipeline/output
           echo "FILES END"
 
 #    # Build the project
