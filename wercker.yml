@@ -45,8 +45,6 @@ build:
     - script:
         name: go get
         code: |
-          echo "LIST:"
-          ls -l / /go /protobuf
           go version
           go get -u github.com/golang/protobuf/protoc-gen-go
           go get github.com/cockroachdb/cmux
@@ -55,19 +53,19 @@ build:
           go get github.com/grafeas/grafeas/samples/server/go-server/api/server/api
           go get gopkg.in/yaml.v2
           go get github.com/lib/pq
-          echo "LIST:"
-          ls -l / /go /protobuf
 
     # Build the project
     - script:
         name: make
         code: |
+          echo "LIST:"
+          ls -l / /go /pipeline
           echo "MAKE START"
           touch Timestamp.txt
           export PATH="/protobuf/bin:$PATH"
-          make clean build
+          make clean build || true
           echo "MAKE END"
-          find $GOPATH -type f -newer Timestamp.txt
+          find /go /pipeline -type f -newer Timestamp.txt
           echo "FILES END"
 
 #    # Build the project
