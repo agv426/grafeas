@@ -58,6 +58,7 @@ build:
     - script:
         name: make
         code: |
+          echo "WERCKER_ROOT is '$WERCKER_ROOT'"
           echo "Looking for Docker:"
           type docker || true
           echo "LIST:"
