@@ -53,6 +53,9 @@ build:
           go get github.com/grafeas/grafeas/samples/server/go-server/api/server/api
           go get gopkg.in/yaml.v2
           go get github.com/lib/pq
+          echo "WERCKER_ROOT = '$WERCKER_ROOT'"
+          echo "WERCKER_OUTPUT_DIR = '$WERCKER_OUTPUT_DIR'"
+          echo "PWD = '$PWD'"
 
     # Build the project
     - script:
