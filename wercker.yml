@@ -83,18 +83,22 @@ publish:
           echo "ls -l /"
           ls -l /
           echo "find /go -type d"
-          find /go -type d
+#          find /go -type d
           echo "ls /pipeline"
           ls /pipeline
+          echo "find /pipeline/output -type d"
+          find /pipeline/output -type d
+          echo "find /pipeline/source -type d"
+          find /pipeline/source -type d
 
-    - internal/docker-scratch-push:
-        username: wmhopkins
-        password: super-secret-1
-        email: will.hopkins@oracle.com
-        repository: wmhopkins/sscm
-        ports: 8080
-        working-dir: /go/src/github.com/wmhopkins/grafeas
-        cmd: go run main.go
+#    - internal/docker-scratch-push:
+#        username: wmhopkins
+#        password: super-secret-1
+#        email: will.hopkins@oracle.com
+#        repository: wmhopkins/sscm
+#        ports: 8080
+#        working-dir: /go/src/github.com/wmhopkins/grafeas
+#        cmd: go run main.go
 
 #    # Build the project
 #    - script:
