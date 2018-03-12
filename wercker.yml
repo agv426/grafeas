@@ -83,12 +83,10 @@ publish:
         code: |
           echo "ls -l /"
           ls -l /
-          echo "mkdir /go"
-          mkdir /go || true
-          echo "find /pipeline/source -type d"
-          find /pipeline/source -type d
-          echo "cp -a /pipeline/source/* /go"
-          cp /pipeline/source/* /go
+          echo "ls -l /go"
+          ls -l /go
+          echo "cp -a /pipeline/source/go/* /go"
+          cp -a /pipeline/source/go/* /go
           echo "find /go -type d"
           find /go -type d
 
