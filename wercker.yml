@@ -62,6 +62,7 @@ build:
           make clean build || true
 
     # Copy results to output dir
+    # TODO: fix this to not copy .git directory
     - script:
         name: copy to output
         code: |
@@ -74,22 +75,22 @@ publish:
   steps:
     # Sets the go workspace and places you package
     # at the right place in the workspace tree
-    - setup-go-workspace:
-        package-dir: github.com/wmhopkins/grafeas
+    # - setup-go-workspace:
+    #     package-dir: github.com/wmhopkins/grafeas
 
     - script:
         name: look around
         code: |
           echo "ls -l /"
           ls -l /
-          echo "find /go -type d"
-          find /go -type d
-          echo "ls /pipeline"
-          ls /pipeline
-          echo "find /pipeline/output -type d"
-          find /pipeline/output -type d
+          echo "mkdir /go"
+          mkdir /go || true
           echo "find /pipeline/source -type d"
           find /pipeline/source -type d
+          echo "cp -a /pipeline/source/* /go"
+          cp /pipeline/source/* /go
+          echo "find /go -type d"
+          find /go -type d
 
 #    - internal/docker-scratch-push:
 #        username: wmhopkins
@@ -97,17 +98,5 @@ publish:
 #        email: will.hopkins@oracle.com
 #        repository: wmhopkins/sscm
 #        ports: 8080
-#        working-dir: /go/src/github.com/wmhopkins/grafeas
+#        working-dir: /go/src/github.com/wmhopkins/grafeas/samples/server/go-server/api/server/main
 #        cmd: go run main.go
-
-#    # Build the project
-#    - script:
-#        name: go build
-#        code: |
-#          go build ./...
-#
-#    # Test the project
-#    - script:
-#        name: go test
-#        code: |
-#          go test ./...
