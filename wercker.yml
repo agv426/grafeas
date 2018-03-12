@@ -87,7 +87,7 @@ publish:
           echo "ls /pipeline"
           ls /pipeline
 
-    - docker-scratch-push:
+    - internal/docker-scratch-push:
         username: wmhopkins
         password: super-secret-1
         email: will.hopkins@oracle.com
