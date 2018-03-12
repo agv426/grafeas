@@ -76,14 +76,12 @@ publish:
     - script:
         name: copy source to /go
         code: |
-          echo "find /go -print"
-          find /go -print
           echo "rm -fr /go/*"
           rm -fr /go/*
           echo "cp -a /pipeline/source/go/* /go"
           cp -a /pipeline/source/go/* /go
 
-    - internal/docker-scratch-push:
+    - internal/docker-push:
         username: wmhopkins
         password: super-secret-1
         email: will.hopkins@oracle.com
