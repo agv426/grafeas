@@ -83,7 +83,7 @@ publish:
           echo "ls -l /"
           ls -l /
           echo "find /go -type d"
-#          find /go -type d
+          find /go -type d
           echo "ls /pipeline"
           ls /pipeline
           echo "find /pipeline/output -type d"
