@@ -25,7 +25,7 @@ build:
   # http://devcenter.wercker.com/docs/steps/index.html
   steps:
     - install-packages:
-        packages: zip unzip docker
+        packages: zip unzip
 
     # Sets the go workspace and places you package
     # at the right place in the workspace tree
@@ -53,32 +53,48 @@ build:
           go get github.com/grafeas/grafeas/samples/server/go-server/api/server/api
           go get gopkg.in/yaml.v2
           go get github.com/lib/pq
-          echo "WERCKER_ROOT = '$WERCKER_ROOT'"
-          echo "WERCKER_OUTPUT_DIR = '$WERCKER_OUTPUT_DIR'"
-          echo "PWD = '$PWD'"
 
     # Build the project
     - script:
         name: make
         code: |
-          echo "WERCKER_ROOT is '$WERCKER_ROOT'"
-          echo "Looking for Docker:"
-          type docker || true
-          echo "LIST:"
-          ls -l / /go /pipeline
-          echo "MAKE START"
-          touch Timestamp.txt
           export PATH="/protobuf/bin:$PATH"
           make clean build || true
-          echo "MAKE END"
-          find /go /pipeline -type f -newer Timestamp.txt | grep -v "/\.git/"
-          echo "CACHE:"
-          find /pipeline/cache
-          echo "SOURCE:"
-          find /pipeline/source
-          echo "OUTPUT:"
-          find /pipeline/output
-          echo "FILES END"
+
+    # Copy results to output dir
+    - script:
+        name: copy to output
+        code: |
+          echo "cp -a /go $WERCKER_OUTPUT_DIR"
+          cp -a /go $WERCKER_OUTPUT_DIR
+          echo "find $WERCKER_OUTPUT_DIR -type f"
+          find $WERCKER_OUTPUT_DIR -type f
+
+publish:
+  steps:
+    # Sets the go workspace and places you package
+    # at the right place in the workspace tree
+    - setup-go-workspace:
+        package-dir: github.com/wmhopkins/grafeas
+
+    - script:
+        name: look around
+        code: |
+          echo "ls -l /"
+          ls -l /
+          echo "find /go -type d"
+          find /go -type d
+          echo "ls /pipeline"
+          ls /pipeline
+
+    - docker-scratch-push:
+        username: wmhopkins
+        password: super-secret-1
+        email: will.hopkins@oracle.com
+        repository: wmhopkins/sscm
+        ports: 8080
+        working-dir: /go/src/github.com/wmhopkins/grafeas
+        cmd: go run main.go
 
 #    # Build the project
 #    - script:
