@@ -83,8 +83,8 @@ publish:
         code: |
           echo "ls -l /"
           ls -l /
-          echo "ls -l /go"
-          ls -l /go
+          echo "find /go -type f"
+          find /go -type f
           echo "cp -a /pipeline/source/go/* /go"
           cp -a /pipeline/source/go/* /go
           echo "find /go -type d"
