@@ -73,28 +73,21 @@ build:
 
 publish:
   steps:
-    # Sets the go workspace and places you package
-    # at the right place in the workspace tree
-    # - setup-go-workspace:
-    #     package-dir: github.com/wmhopkins/grafeas
-
     - script:
-        name: look around
+        name: copy source to /go
         code: |
-          echo "ls -l /"
-          ls -l /
-          echo "find /go -type f"
-          find /go -type f
+          echo "find /go -print"
+          find /go -print
+          echo "rm -fr /go/*"
+          rm -fr /go/*
           echo "cp -a /pipeline/source/go/* /go"
           cp -a /pipeline/source/go/* /go
-          echo "find /go -type d"
-          find /go -type d
 
-#    - internal/docker-scratch-push:
-#        username: wmhopkins
-#        password: super-secret-1
-#        email: will.hopkins@oracle.com
-#        repository: wmhopkins/sscm
-#        ports: 8080
-#        working-dir: /go/src/github.com/wmhopkins/grafeas/samples/server/go-server/api/server/main
-#        cmd: go run main.go
+    - internal/docker-scratch-push:
+        username: wmhopkins
+        password: super-secret-1
+        email: will.hopkins@oracle.com
+        repository: wmhopkins/sscm
+        ports: 8080
+        working-dir: /go/src/github.com/wmhopkins/grafeas/samples/server/go-server/api/server/main
+        cmd: go run main.go
