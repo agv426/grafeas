@@ -30,7 +30,7 @@ build:
     # Sets the go workspace and places you package
     # at the right place in the workspace tree
     - setup-go-workspace:
-        package-dir: github.com/wmhopkins/grafeas
+        package-dir: github.com/grafeas/grafeas
 
     # Get protobuf
     - script:
@@ -50,7 +50,6 @@ build:
           go get github.com/cockroachdb/cmux
           go get github.com/rs/cors
           go get google.golang.org/grpc
-          go get github.com/grafeas/grafeas/samples/server/go-server/api/server/api
           go get gopkg.in/yaml.v2
           go get github.com/lib/pq
 
@@ -59,7 +58,7 @@ build:
         name: make
         code: |
           export PATH="/protobuf/bin:$PATH"
-          make clean build || true
+          make clean build
 
     # Copy results to output dir
     # TODO: fix this to not copy .git directory
