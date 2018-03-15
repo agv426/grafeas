@@ -94,8 +94,7 @@ deploy-gke:
   - kubectl:
     debug: true
     server: https://$GKE_MASTER_ADDRESS
-    username: $GKE_USERNAME
-    password: $GKE_PASSWORD
+    token: $GKE_ACCESS_TOKEN
     insecure-skip-tls-verify: true
     command: replace -f grafeas-deploy-gke.yaml
 
