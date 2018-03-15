@@ -92,6 +92,7 @@ publish:
 deploy-gke:
   steps:
   - kubectl:
+    debug: true
     server: https://$GKE_MASTER_ADDRESS
     username: $GKE_USERNAME
     password: $GKE_PASSWORD
