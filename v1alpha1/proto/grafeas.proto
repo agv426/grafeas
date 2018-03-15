@@ -748,6 +748,8 @@ message Note {
 
     // A note describing a provider/analysis type.
     Discovery discovery = 18;
+
+    AttestationAuthority attestation_authority =19;
   }
 
   // URLs associated with this note
