@@ -92,7 +92,7 @@ publish:
 deploy-gke:
   steps:
   - kubectl:
-    server: $GKE_MASTER_ADDRESS
+    server: https://$GKE_MASTER_ADDRESS
     username: $GKE_USERNAME
     password: $GKE_PASSWORD
     insecure-skip-tls-verify: true
