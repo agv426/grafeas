@@ -1,0 +1,16 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: grafeas
+spec:
+  template:
+    metadata:
+      labels:
+        app: grafeas
+    spec:
+      containers:
+        - name: grafeas
+          image: "wmhopkins/sscm:latest"
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080

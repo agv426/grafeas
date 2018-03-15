@@ -88,3 +88,13 @@ publish:
         ports: 8080
         working-dir: /go/src/github.com/grafeas/grafeas/samples/server/go-server/api/server/main
         cmd: go run main.go
+
+deploy-gke:
+  steps:
+  - kubectl:
+    server: $GKE_MASTER_ADDRESS
+    username: $GKE_USERNAME
+    password: $GKE_PASSWORD
+    insecure-skip-tls-verify: true
+    command: replace -f grafeas-deploy-gke.yaml
+
