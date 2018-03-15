@@ -91,10 +91,13 @@ publish:
 
 deploy-gke:
   steps:
-  - kubectl:
+  - riceo/kubectl@3.1.9
     debug: true
     server: https://$GKE_MASTER_ADDRESS
-    token: $GKE_AUTH_TOKEN
+    gcloud-key-json: $GCP_KEY_JSON
+    gke-cluster-name: $GKE_CLUSTER_NAME
+    gke-cluster-zone: $GKE_CLUSTER_ZONE
+    gke-cluster-project: $GKE_CLUSTER_PROJECT
     insecure-skip-tls-verify: true
     command: replace -f grafeas-deploy-gke.yaml
 
