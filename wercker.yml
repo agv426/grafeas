@@ -91,10 +91,10 @@ publish:
 
 deploy-gke:
   steps:
-  - riceo/kubectl
+  - riceo/kubectl@3.1.9:
     debug: true
     server: https://$GKE_MASTER_ADDRESS
-    gcloud-key-json: $GCP_KEY_JSON
+    gcloud-key-json: "$GCP_KEY_JSON"
     gke-cluster-name: $GKE_CLUSTER_NAME
     gke-cluster-zone: $GKE_CLUSTER_ZONE
     gke-cluster-project: $GKE_CLUSTER_PROJECT
