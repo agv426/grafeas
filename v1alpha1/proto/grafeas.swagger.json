@@ -423,6 +423,15 @@
     }
   },
   "definitions": {
+    "AttestationAuthorityAttestationAuthorityHint": {
+      "type": "object",
+      "properties": {
+        "human_readable_name": {
+          "type": "string",
+          "description": "The human readable name of this Attestation Authority, e.g. \"qa\"."
+        }
+      }
+    },
     "AttestationAuthorityAttestationDetails": {
       "type": "object",
       "properties": {
@@ -906,6 +915,15 @@
       },
       "description": "Artifact describes a build product."
     },
+    "apiAttestationAuthority": {
+      "type": "object",
+      "properties": {
+        "hint": {
+          "$ref": "#/definitions/AttestationAuthorityAttestationAuthorityHint"
+        }
+      },
+      "description": "Note kind that represents a logical attestation \"role\" or \"authority\".  For\nexample, an organization might have one AttestationAuthority for \"QA\" and one\nfor \"build\".  This Note is intended to act strictly as a grouping mechanism\nfor the attached Occurrences (Attestations).  This grouping mechanism also\nprovides a security boundary and provides a single point of lookup to find\nall attached Attestation Occurrences, even if they don't all live in the same\nproject."
+    },
     "apiBuildDetails": {
       "type": "object",
       "properties": {
@@ -1298,6 +1316,9 @@
         "discovery": {
           "$ref": "#/definitions/apiDiscovery",
           "description": "A note describing a provider/analysis type."
+        },
+        "attestation_authority": {
+          "$ref": "#/definitions/apiAttestationAuthority"
         },
         "related_url": {
           "type": "array",
